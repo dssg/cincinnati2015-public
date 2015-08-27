@@ -1,21 +1,40 @@
-![Travis build status](https://api.travis-ci.com/dssg/cincinnati2015.svg?token=5DTQ1ybZqkXvpw71xVeP&branch=master)
+# Blight Risk Prediction
+
+This readme describes how to run experiments for models. 
+
+Download the code to a directory, edit `default.yaml` as necessary and then do the following at your Python interpreter:
 
 
-## About
+```
+from blight_risk_prediction import model
+model.main()
+```
 
+Look at the IPython notebook in this directory to see example output. 
 
-First settled in 1788, Cincinnati is one of the oldest American cities west of the original colonies. Today, the 
-city struggles with aging home stock, stifling economic redevelopment in some neighborhoods. 
+## Automatic output
 
-DSSG is working with the City of Cincinnati to identify properties at risk of code violations or abandonment. We hope
-that early intervention strategies can prevent further damage and stimulate neighborhood revitalization. Read more about
-our project [here](http://dssg.uchicago.edu/2000/03/04/org-cincinnati.html).
+Each model run produces a pickle file which contains:
 
-## Repository layout
+* the full list of parcels predicted to have violations
+* the configuration file used to generate that model
+* standard evaluation metrics, e.g. precision, recall, F1 score
 
-* blight_risk_prediction - our modeling pipeline
-* etl - scripts for loading the Cincinnati datasets into a postgres database
-* exploration - ipython notebooks for initial data exploration
-* sql - SQL queries for making views in the postgres database
-* tests - unit tests
+In addition to the pickle file, a plot of the confusion matrix is generated and saved as a PNG file. 
 
+These output files include a timestamp in their filename such that they will not be accidentally overwritten. 
+
+## Featurebot
+
+To generate a new table of features, e.g. for a new  testing inspection date, run `featurebot.main()`. 
+
+## Writing a new feature
+
+Add features in `featurebot.py`:
+
+*  Define a new feature to generate in `featurebot.features_to_generate()`. This function will generate a new table in the database by pairs of inspection and date, for a list of parcels.
+*  Add feature generation code in a seperete file `<feature_name>.py`
+*  Add feature to list of features to load when creating training and testing in `dataset.feature_loaders()` --> list all columns in feature table!
+*  Add a function to load feature in class `FeatureLoader().def load_<feature_name>_feature()`
+*  Add a string corresponding to the feature in the default YAML configuration file: list all column names!
+*  Start `featurebot` to populate the database with features.
