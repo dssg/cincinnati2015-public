@@ -109,6 +109,25 @@ FROM inspections_raw.t_dssg_apd_base
 WHERE comp_type = 'CBHHAZ_R' AND date_d IS NOT NULL
 );
 
+-- #################
+-- There are some cases that have several parcel id's attached to them. For some analysis it is useful to have
+-- one-to-one mapping between case and parcel. This query creates a view for such a mapping. Cases that have
+-- more than one parcel attached to it not contained in the view.
+-- #################
+
+CREATE VIEW inspections_views.number_key2parcel_no
+AS
+   (SELECT par.number_key, trim(par.parcel_no)
+    FROM inspections_raw.t_dssg_apd_par AS par
+    JOIN
+      (SELECT number_key, count(distinct(parcel_no))
+       FROM inspections_raw.t_dssg_apd_par
+       WHERE primary_parcel = '1'
+       GROUP BY number_key) AS counts
+    ON counts.number_key = par.number_key
+    WHERE counts.count = 1
+    AND primary_parcel='1');
+
 -- map number key to parcel id
 CREATE VIEW inspections_views.events_parcel_id AS
  SELECT parcel.parcel_no,
