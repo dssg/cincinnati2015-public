@@ -77,30 +77,8 @@ def get_type():
     use_type.to_csv("postprocess/type.csv")
     return use_type["residential"]
 
-types = get_type()
-nhood = get_neighbourhood()
-"""
-print (types.head())
-print (len(types))
-print (nhood.head())
-print (len(nhood))
-"""
-#dataset = get_type() # all parcels in cincy
-#dataset = pd.merge(dataset, get_neighbourhood(), how='left', left_index=True, right_index=True)
-#dataset = pd.merge(dataset, get_last_inspection(), how='left', left_index=True, right_index=True)
 
-#dataset["any_interaction"] = dataset["any_interaction"].fillna(False)
-#print (dataset.head())
-
-"""
-to_inspect = pd.read_csv("to_inspect.csv", header=None, names={"parcel_id", "inspection_date", "probability"})
-hoods = pd.read_csv("postprocess/hoods.csv")
-hoods = hoods.set_index("parcel_id", drop=True)
-to_inspect = to_inspect.set_index("parcel_id", drop=True)
-
-df = pd.merge(to_inspect, hoods, how='left', left_index=True, right_index=True)
-df = df[["latitude", "longitude", "probability"]]
-df.to_csv("to_inspect_with_latlong.csv", index=False)
-print (df.head())
-"""
-
+dataset = get_type() 
+dataset = pd.merge(dataset, get_neighbourhood(), how='left', left_index=True, right_index=True)
+dataset = pd.merge(dataset, get_last_inspection(), how='left', left_index=True, right_index=True)
+dataset.to_csv("parcel_info.csv")
