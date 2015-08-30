@@ -78,7 +78,7 @@ def get_type():
     return use_type["residential"]
 
 
-dataset = get_type() 
+dataset = get_type()
 dataset = pd.merge(dataset, get_neighbourhood(), how='left', left_index=True, right_index=True)
 dataset = pd.merge(dataset, get_last_inspection(), how='left', left_index=True, right_index=True)
 dataset.to_csv("parcel_info.csv")
