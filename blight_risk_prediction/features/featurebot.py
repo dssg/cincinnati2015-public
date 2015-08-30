@@ -113,6 +113,11 @@ def generate_features_for_fake_inspection(inspection_date):
 
 
 if __name__ == '__main__':
-    d = datetime.datetime.strptime("01Jul2015", '%d%b%Y')
-    generate_features_for_fake_inspection(d)
+    # to generate features for if an inspection happens at date d
+    #d = datetime.datetime.strptime("01Jul2015", '%d%b%Y')
+    #generate_features_for_fake_inspection(d)
+
+    # to generate features
     #generate_features()
+
+    pass
