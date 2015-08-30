@@ -103,6 +103,10 @@ class UnknownFeatureError(Exception):
 
 class FeatureLoader():
 
+    """ IMPORTANT
+        make sure that your queries do not refer to any feature_ schema. Instead, the correct schema will be set
+        when initializing the database connection """
+
     def __init__(self, schema, start_date, end_date):
         if schema not in existing_feature_schemas():
             raise SchemaMissing(schema)
