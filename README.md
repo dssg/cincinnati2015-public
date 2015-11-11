@@ -14,8 +14,8 @@ our project [here](http://dssg.uchicago.edu/2015/08/20/cincy-blight-prevention.h
 
 #### Get the code
 
-    git clone https://github.com/dssg/cincinnati2015.git
-    cd cincinnati2015
+    git clone https://github.com/dssg/cincinnati2015-public.git
+    cd cincinnati2015-public
 
 #### Install all pre-requisites
     conda create -n "cincinnati" --yes --file requirements.conda python=2.7
