@@ -1,5 +1,6 @@
 <!-- ![Travis build status](https://api.travis-ci.com/dssg/cincinnati2015-public.svg&branch=master)-->
-
+> **Note:** ***This repository reflects the work completed during the summer of 2015. 
+> To see the continuation of the project, please [visit the current repo.](https://github.com/dssg/cincinnati/)***
 
 ## About
 
